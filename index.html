@@ -645,19 +645,6 @@
 </head>
 
 <body>
-  <div id="authOverlay" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.55); z-index:99999; padding:16px;">
-  <div class="card" style="width:min(420px,96vw);">
-    <h2>Logowanie</h2>
-    <div class="divider"></div>
-
-    <form id="loginForm" autocomplete="off" style="display:grid; gap:10px;">
-      <input id="loginEmail" type="email" placeholder="Email" required />
-      <input id="loginPassword" type="password" placeholder="Hasło" required minlength="6" />
-      <button class="btn primary" type="submit">Zaloguj</button>
-      <p id="authMsg" class="muted" style="margin:0;"></p>
-    </form>
-  </div>
-</div>
   <div class="bg" aria-hidden="true"></div>
   <canvas id="stars" aria-hidden="true"></canvas>
 
@@ -869,57 +856,6 @@
   </div>
 
   <script>
-
-
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import { 
-    getAuth, 
-    onAuthStateChanged, 
-    signInWithEmailAndPassword,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBeSLNnzgCJJzkZ-Foqyyl_Xsd6Ser0K0A",
-    authDomain: "gamespanellonnek.firebaseapp.com",
-    projectId: "gamespanellonnek",
-    storageBucket: "gamespanellonnek.firebasestorage.app",
-    messagingSenderId: "243900679582",
-    appId: "1:243900679582:web:53147946fb24296025028f",
-    measurementId: "G-3N7T4VV84J"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  const overlay = document.getElementById("authOverlay");
-  const form = document.getElementById("loginForm");
-  const emailEl = document.getElementById("loginEmail");
-  const passEl = document.getElementById("loginPassword");
-  const msg = document.getElementById("authMsg");
-
-  // Pokazuj/ukrywaj overlay
-  onAuthStateChanged(auth, (user) => {
-    overlay.style.display = user ? "none" : "flex";
-  });
-
-  // Logowanie
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    msg.textContent = "";
-
-    try {
-      await signInWithEmailAndPassword(auth, emailEl.value.trim(), passEl.value);
-      passEl.value = "";
-    } catch (err) {
-      msg.textContent = "Błąd logowania: " + err.message;
-    }
-  });
-
-  // Opcjonalny logout z konsoli
-  window.logout = () => signOut(auth);
-
-    
     /* ===== Stars ===== */
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
@@ -1479,4 +1415,3 @@
 </body>
 
 </html>
-
